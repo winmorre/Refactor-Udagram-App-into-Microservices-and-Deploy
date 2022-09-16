@@ -1,26 +1,45 @@
+language: node_js
+node_js:
+  - 12
 
-- docker build -t udagram-api-feed ./udagram-api-feed
+services:
+  - docker
 
-- docker build -t udagram-api-user ./udagram-api-user
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
 
-- docker build -t udagram-frontend ./udagram-frontend
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"
 
-- docker build -t reverseproxy ./udagram-reverseproxy
+script:
+  - docker --version # print the version for logging
 
+  - docker build -t udagram-api-feed ./udagram-api-feed
 
-# Tagging
-- docker tag udagram-api-feed winmorre/udagram-api-feed:v1
+  - docker build -t udagram-api-user ./udagram-api-user
 
-- docker tag udagram-api-user winmorre/udagram-api-user:v1
+  - docker build -t udagram-frontend ./udagram-frontend
 
-- docker tag udagram-frontend winmorre/udagram-frontend:v1
+  - docker build -t reverseproxy ./udagram-reverseproxy
 
-- docker tag reverseproxy winmorre/reverseproxy:v1
+    # Tagging
+  - docker tag udagram-api-feed winmorre/udagram-api-feed:v1
 
-# Push
-# Assuming DOCKER_PASSWORD and DOCKER_USERNAME are set in the Travis repository settings
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push winmorre/udagram-api-feed:v1
-- docker push winmorre/udagram-api-user:v1
-- docker push winmorre/udagram-frontend:v1
-- docker push winmorre/reverseproxy:v1
+  - docker tag udagram-api-user winmorre/udagram-api-user:v1
+
+  - docker tag udagram-frontend winmorre/udagram-frontend:v1
+
+  - docker tag reverseproxy winmorre/reverseproxy:v1
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+  - docker push winmorre/udagram-api-feed:v1
+
+  - docker push winmorre/udagram-api-user:v1
+
+  - docker push winmorre/udagram-frontend:v1
+
+  - docker push winmorre/reverseproxy:v1
