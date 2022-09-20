@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udagram-frontend-deployment
+  labels:
+    app: udagram-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: udagram-frontend
+  template:
+    metadata:
+      labels:
+        app: udagram-frontend
+    spec:
+      containers:
+        - name: udagram-frontend
+          image: winmorre/udagram-frontend:v1
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "8240Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: app-properties
+            - secretRef:
+                name: app-secret
+            - secretRef:
+                name: aws-secret
