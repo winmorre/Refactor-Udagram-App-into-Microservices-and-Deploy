@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udagram-frontend-deployment
+  name: frontend
   labels:
-    app: udagram-frontend
+    app: frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: udagram-frontend
+      app: frontend
   template:
     metadata:
       labels:
-        app: udagram-frontend
+        app: frontend
     spec:
       containers:
-        - name: udagram-frontend
+        - name: frontend
           image: winmorre/udagram-frontend:v1
           resources:
             requests:
