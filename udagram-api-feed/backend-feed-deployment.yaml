@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udagram-feed-api-deployment
+  labels:
+    app: udagram-api-feed
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: udagram-api-feed
+  template:
+    metadata:
+      labels:
+        app: udagram-api-feed
+    spec:
+      containers:
+        - name: udagram-api-feed
+          image: winmorre/udagram-api-feed:v1
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "8240Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-properties
+            - secretRef:
+                name: app-secret
+            - secretRef:
+                name: aws-secret
+            - secretRef:
+                name: aws-secret
