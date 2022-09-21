@@ -3,7 +3,7 @@ node_js:
   - 12
 
 services:
-  - docker
+  - 'docker'
 
 # Pre-testing installs
 install:
@@ -25,16 +25,18 @@ script:
   - docker build -t reverseproxy ./udagram-reverseproxy
 
     # Tagging
-  - docker tag udagram-api-feed:latest winmorre/udagram-api-feed:v1
+  - docker tag udagram-api-feed:latest winmorre/udagram-api-feed:v2
 
-  - docker tag udagram-api-user:latest winmorre/udagram-api-user:v1
+  - docker tag udagram-api-user:latest winmorre/udagram-api-user:v2
 
   - docker tag udagram-frontend:latest winmorre/udagram-frontend:v1
 
-  - docker tag reverseproxy:latest winmorre/reverseproxy:v1
+  - docker tag reverseproxy:latest winmorre/reverseproxy:v2
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
   - docker push winmorre/udagram-api-feed:v1
 
