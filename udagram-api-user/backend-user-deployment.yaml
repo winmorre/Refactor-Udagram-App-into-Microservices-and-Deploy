@@ -1,7 +1,9 @@
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-user-deployment
+  name: backend-user
   labels:
     app: backend-user
 spec:
@@ -16,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend-user
-          image: winmorre/udagram-api-user:v3
+          image: winmorre/udagram-api-user:v5
           resources:
             requests:
               memory: "64Mi"

@@ -1,7 +1,9 @@
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-feed-deployment
+  name: backend-feed
   labels:
     app: backend-feed
 spec:
@@ -16,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend-feed
-          image: winmorre/udagram-api-feed:v3
+          image: winmorre/udagram-api-feed:v4
           resources:
             requests:
               memory: "64Mi"

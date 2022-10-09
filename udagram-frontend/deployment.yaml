@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: winmorre/udagram-frontend:v1
+          image: winmorre/udagram-frontend:v4
           resources:
             requests:
               memory: "64Mi"
